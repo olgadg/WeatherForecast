@@ -25,7 +25,7 @@ public class ForecastModel {
         return dayForecastList;
     }
 
-    public List<DayForecast> buildDayForecastList() {
+    private List<DayForecast> buildDayForecastList() {
         List<DayForecast> dayForecasts = new ArrayList<>();
         List<Forecast> forecastForOneDay = new ArrayList<>();
         Forecast currentForecast = null;

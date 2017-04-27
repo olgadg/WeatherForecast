@@ -6,9 +6,10 @@
     android:layout_height="match_parent"
     tools:context="com.cottondroid.olga.weatherforecast.HomeForecastActivity">
 
-   <fragment android:name="com.cottondroid.olga.weatherforecast.WeatherForecastFragment"
-       android:id="@+id/forecast_fragment"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"/>
+    <fragment
+        android:id="@+id/forecast_fragment"
+        android:name="com.cottondroid.olga.weatherforecast.ForecastFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </FrameLayout>

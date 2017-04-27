@@ -31,22 +31,22 @@ public class Forecast {
         weather = weathers;
     }
 
-    protected String getMainWeather() {
+    public String getMainWeather() {
         if (weather == null || weather.isEmpty()) {
             return null;
         }
         return weather.get(0).getMain();
     }
 
-    protected int getTemperature() {
+    public int getTemperature() {
         return main.getTemperature();
     }
 
-    protected int getMinTemperature() {
+    public int getMinTemperature() {
         return main.getMinTemperature();
     }
 
-    protected int getMaxTemperature() {
+    public int getMaxTemperature() {
         return main.getMaxTemperature();
     }
 
