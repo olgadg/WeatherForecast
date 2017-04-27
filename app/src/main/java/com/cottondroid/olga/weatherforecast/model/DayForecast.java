@@ -4,6 +4,11 @@ import java.util.List;
 
 public class DayForecast {
     private final List<Forecast> forecastList;
+
+    public Forecast getDayForecast() {
+        return dayForecast;
+    }
+
     private final Forecast dayForecast;
 
     public DayForecast(List<Forecast> forecastList) {

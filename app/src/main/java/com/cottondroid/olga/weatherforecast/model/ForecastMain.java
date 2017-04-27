@@ -5,18 +5,14 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class ForecastMain {
+    public static final float KELVIN = 273f;
+
     @SerializedName("temp")
     private float temperature;
     @SerializedName("temp_min")
     private float minTemperature;
     @SerializedName("temp_max")
     private float maxTemperature;
-    private float pressure;
-    @SerializedName("sea_level")
-    private float seaLevel;
-    @SerializedName("grnd_level")
-    private float groundLevel;
-    private int humidity;
 
 
     /**
@@ -29,17 +25,21 @@ public class ForecastMain {
             temperature += forecastMain.temperature;
             minTemperature += forecastMain.minTemperature;
             maxTemperature += forecastMain.maxTemperature;
-            pressure += forecastMain.pressure;
-            seaLevel += forecastMain.seaLevel;
-            groundLevel += forecastMain.groundLevel;
-            humidity += forecastMain.humidity;
         }
         temperature /= count;
         minTemperature /= count;
         maxTemperature /= count;
-        pressure /= count;
-        seaLevel /= count;
-        groundLevel /= count;
-        humidity /= count;
+    }
+
+    public int getTemperature() {
+        return (int) (temperature - KELVIN);
+    }
+
+    public int getMinTemperature() {
+        return (int) (minTemperature - KELVIN);
+    }
+
+    public int getMaxTemperature() {
+        return (int) (maxTemperature - KELVIN);
     }
 }

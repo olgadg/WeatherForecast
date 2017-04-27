@@ -14,9 +14,6 @@ public class Forecast {
     private Calendar calendarDate;
     private ForecastMain main;
     private List<Weather> weather;
-    private Clouds clouds;
-    private Wind wind;
-    private Rain rain;
 
     /**
      * Constructor using average values.
@@ -30,6 +27,8 @@ public class Forecast {
             forecastMains.add(forecast.main);
             weathers.addAll(forecast.weather);
         }
+        main = new ForecastMain(forecastMains);
+        weather = weathers;
     }
 
     protected String getMainWeather() {
@@ -37,6 +36,18 @@ public class Forecast {
             return null;
         }
         return weather.get(0).getMain();
+    }
+
+    protected int getTemperature() {
+        return main.getTemperature();
+    }
+
+    protected int getMinTemperature() {
+        return main.getMinTemperature();
+    }
+
+    protected int getMaxTemperature() {
+        return main.getMaxTemperature();
     }
 
     private Calendar getCalendarDate() {

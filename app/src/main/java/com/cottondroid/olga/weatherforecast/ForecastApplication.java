@@ -6,9 +6,12 @@ import android.app.Application;
 import com.cottondroid.olga.weatherforecast.data.DaggerNetworkComponent;
 import com.cottondroid.olga.weatherforecast.data.NetworkComponent;
 import com.cottondroid.olga.weatherforecast.data.NetworkModule;
+import com.cottondroid.olga.weatherforecast.data.WeatherForecastModule;
+
+import javax.inject.Inject;
 
 public class ForecastApplication extends Application {
-    private NetworkComponent networkComponent;
+    @Inject NetworkComponent networkComponent;
 
     @Override
     public void onCreate() {
@@ -17,6 +20,7 @@ public class ForecastApplication extends Application {
         networkComponent = DaggerNetworkComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .networkModule(new NetworkModule())
+                .weatherForecastModule(new WeatherForecastModule())
                 .build();
     }
 

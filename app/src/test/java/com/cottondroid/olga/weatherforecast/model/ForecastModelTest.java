@@ -24,6 +24,13 @@ public class ForecastModelTest {
         assertThat("Five days", forecastModel.getDayForecastList().size(), is(6)); //today + 5days
         assertThat("Todays blocks", forecastModel.getDayForecastList().get(0).getForecastList().size(), is(3)); //3 blocks for today
         assertThat("Todays main weather", forecastModel.getDayForecastList().get(0).getForecastList().get(0).getMainWeather(), is("Rain"));
+        assertThat("Todays temperature", forecastModel.getDayForecastList().get(0).getForecastList().get(0).getTemperature(), is(9));
+        assertThat("Todays min temperature", forecastModel.getDayForecastList().get(0).getForecastList().get(0).getMinTemperature(), is(9));
+        assertThat("Todays max temperature", forecastModel.getDayForecastList().get(0).getForecastList().get(0).getMaxTemperature(), is(9));
+        assertThat("Todays average weather", forecastModel.getDayForecastList().get(0).getDayForecast().getMainWeather(), is("Rain"));
+        assertThat("Todays average temperature", forecastModel.getDayForecastList().get(0).getDayForecast().getTemperature(), is(8));
+        assertThat("Todays average min temperature", forecastModel.getDayForecastList().get(0).getDayForecast().getMinTemperature(), is(8));
+        assertThat("Todays average max temperature", forecastModel.getDayForecastList().get(0).getDayForecast().getMaxTemperature(), is(8));
         for (int i = 1; i < forecastModel.getDayForecastList().size() - 1 ; i++) {
             assertThat("All blocks", forecastModel.getDayForecastList().get(i).getForecastList().size(), is(24 / 3 - 1)); //1 block for every 3 hours
         }

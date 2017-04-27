@@ -1,6 +1,8 @@
 package com.cottondroid.olga.weatherforecast;
 
 
+import android.app.Application;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -16,7 +18,7 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    ForecastApplication provideApplication() {
+    Application provideApplication() {
         return application;
     }
 }
