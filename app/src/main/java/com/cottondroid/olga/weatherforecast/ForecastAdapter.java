@@ -17,9 +17,9 @@ import java.util.List;
 
 public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastViewHolder> {
 
-    private final List<DayForecast> forecasts = new ArrayList<>();
+    private final List<Forecast> forecasts = new ArrayList<>();
 
-    public void setForecasts(List<DayForecast> forecasts) {
+    public void setForecasts(List<Forecast> forecasts) {
         this.forecasts.clear();
         this.forecasts.addAll(forecasts);
         notifyDataSetChanged();
@@ -35,8 +35,8 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
 
     @Override
     public void onBindViewHolder(ForecastViewHolder holder, int position) {
-        DayForecast forecast = forecasts.get(position);
-        holder.bind(forecast.getDayForecast());
+        Forecast forecast = forecasts.get(position);
+        holder.bind(forecast);
     }
 
     @Override

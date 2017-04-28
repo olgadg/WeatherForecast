@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.cottondroid.olga.weatherforecast.data.WeatherForecastRepository;
 import com.cottondroid.olga.weatherforecast.model.DayForecast;
+import com.cottondroid.olga.weatherforecast.model.Forecast;
 import com.cottondroid.olga.weatherforecast.model.ForecastModel;
 
 import java.util.List;
@@ -53,7 +54,7 @@ public class ForecastFragment extends Fragment implements ForecastView {
     }
 
     @Override
-    public void onDataRetrieved(List<DayForecast> forecasts) {
+    public void onDataRetrieved(List<Forecast> forecasts) {
         Log.d(ForecastFragment.class.getName(), "onDataRetrieved");
         adapter.setForecasts(forecasts);
     }
