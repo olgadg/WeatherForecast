@@ -2,49 +2,63 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:padding="16dp">
+
+    <TextView
+        android:id="@+id/date_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="4dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:text="Today" />
 
     <TextView
         android:id="@+id/weather_main_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
-        tools:text="Rain"/>
+        android:layout_above="@+id/weather_extra_textview"
+        android:layout_marginLeft="60dp"
+        android:textSize="28sp"
+        tools:text="Rain" />
 
     <TextView
         android:id="@+id/weather_extra_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/temperature_textview"
+        android:layout_marginLeft="60dp"
         android:textSize="12sp"
-        tools:text="@string/umbrella_text"/>
+        tools:text="@string/umbrella_text" />
 
     <TextView
         android:id="@+id/temperature_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:textSize="24sp"
-        tools:text="5 \u00B0"/>
-
-    <TextView
-        android:id="@+id/min_temperature_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/max_temperature_textview"
-        android:layout_below="@id/temperature_textview"
-        android:textSize="14sp"
-        tools:text="3 \u00B0"/>
+        android:textSize="28sp"
+        tools:text="5 \u00B0" />
 
     <TextView
         android:id="@+id/max_temperature_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
+        android:layout_below="@id/temperature_textview"
+        android:layout_toLeftOf="@+id/min_temperature_textview"
+        android:textSize="14sp"
+        tools:text="8 \u00B0" />
+
+    <TextView
+        android:id="@+id/min_temperature_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@id/temperature_textview"
+        android:layout_marginLeft="4dp"
         android:textSize="14sp"
-        tools:text="8 \u00B0"/>
+        tools:text="3 \u00B0" />
 </RelativeLayout>

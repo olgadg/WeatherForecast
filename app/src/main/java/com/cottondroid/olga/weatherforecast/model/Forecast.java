@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class Forecast {
     @SerializedName("dt")
@@ -60,15 +61,28 @@ public class Forecast {
     }
 
     protected boolean isSameDate(Forecast forecast) {
-        return forecast.getCalendarDate().get(Calendar.YEAR) == getCalendarDate().get(Calendar.YEAR)
-                && forecast.getCalendarDate().get(Calendar.DAY_OF_YEAR) == getCalendarDate().get(Calendar.DAY_OF_YEAR);
+        return isSameDate(forecast.getCalendarDate());
+    }
+
+    private boolean isSameDate(Calendar otherCalendarDate) {
+        return otherCalendarDate.get(Calendar.YEAR) == getCalendarDate().get(Calendar.YEAR)
+                && otherCalendarDate.get(Calendar.DAY_OF_YEAR) == getCalendarDate().get(Calendar.DAY_OF_YEAR);
+    }
+
+    public boolean isItToday() {
+        Calendar today = Calendar.getInstance();
+        return isSameDate(today);
+    }
+
+    public String getDayOfTheWeek() {
+        return getCalendarDate().getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.UK);
     }
 
     public boolean willItRain() {
-        return main.willItRain();
+        return weather.get(0).willItRain();
     }
 
     public boolean willThereBeSun() {
-        return main.willThereBeSun();
+        return weather.get(0).willThereBeSun();
     }
 }

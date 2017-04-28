@@ -45,6 +45,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
     }
 
     public static class ForecastViewHolder extends ViewHolder {
+        private TextView date;
         private TextView mainWeather;
         private TextView extraWeather;
         private TextView temperature;
@@ -53,6 +54,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
 
         public ForecastViewHolder(View itemView) {
             super(itemView);
+            date = (TextView) itemView.findViewById(R.id.date_textview);
             mainWeather = (TextView) itemView.findViewById(R.id.weather_main_textview);
             extraWeather = (TextView) itemView.findViewById(R.id.weather_extra_textview);
             temperature = (TextView) itemView.findViewById(R.id.temperature_textview);
@@ -61,6 +63,14 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
         }
 
         public void bind(Forecast forecast) {
+            if (forecast.isItToday()) {
+                date.setText(date.getResources().getString(R.string.today));
+                temperature.setText(temperature.getResources().getString(R.string.temperature_degrees, forecast.getTemperature()));
+                temperature.setVisibility(View.VISIBLE);
+            } else {
+                date.setText(forecast.getDayOfTheWeek());
+                temperature.setVisibility(View.INVISIBLE);
+            }
             mainWeather.setText(forecast.getMainWeather());
             if (forecast.willThereBeSun()) {
                 extraWeather.setVisibility(View.VISIBLE);
@@ -71,7 +81,6 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
             } else {
                 extraWeather.setVisibility(View.GONE);
             }
-            temperature.setText(temperature.getResources().getString(R.string.temperature_degrees, forecast.getTemperature()));
             minTemperature.setText(minTemperature.getResources().getString(R.string.temperature_degrees, forecast.getMinTemperature()));
             maxTemperature.setText(maxTemperature.getResources().getString(R.string.temperature_degrees, forecast.getMaxTemperature()));
         }
