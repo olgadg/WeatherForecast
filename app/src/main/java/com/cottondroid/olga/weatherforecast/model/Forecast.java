@@ -17,6 +17,7 @@ public class Forecast {
 
     /**
      * Constructor using average values.
+     *
      * @param forecasts list of forecastMains to use for the average
      */
     protected Forecast(List<Forecast> forecasts) {
@@ -61,5 +62,13 @@ public class Forecast {
     protected boolean isSameDate(Forecast forecast) {
         return forecast.getCalendarDate().get(Calendar.YEAR) == getCalendarDate().get(Calendar.YEAR)
                 && forecast.getCalendarDate().get(Calendar.DAY_OF_YEAR) == getCalendarDate().get(Calendar.DAY_OF_YEAR);
+    }
+
+    public boolean willItRain() {
+        return main.willItRain();
+    }
+
+    public boolean willThereBeSun() {
+        return main.willThereBeSun();
     }
 }

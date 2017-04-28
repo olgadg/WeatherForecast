@@ -11,7 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cottondroid.olga.weatherforecast.data.WeatherForecastRepository;
+import com.cottondroid.olga.weatherforecast.model.DayForecast;
 import com.cottondroid.olga.weatherforecast.model.ForecastModel;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -21,46 +24,20 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class ForecastFragment extends Fragment {
+public class ForecastFragment extends Fragment implements ForecastView {
 
     @Inject
     WeatherForecastRepository repository;
     private ForecastAdapter adapter;
+    private ForecastPresenter presenter;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Log.d(ForecastFragment.class.getName(), "onActivityCreated");
         ((ForecastApplication) getActivity().getApplication()).getNetworkComponent().inject(this);
-
-        repository.getWeatherForecast()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.newThread())
-                .subscribe(
-                        new Observer<ForecastModel>() {
-                            @Override
-                            public void onSubscribe(@NonNull Disposable d) {
-                                Log.d(ForecastFragment.class.getName(), "onSubscribe");
-                            }
-
-                            @Override
-                            public void onNext(@NonNull ForecastModel forecastModel) {
-                                Log.i(ForecastFragment.class.getName(), "forecastModel: " + forecastModel);
-                                adapter.setForecasts(forecastModel.getDayForecastList());
-                            }
-
-                            @Override
-                            public void onError(@NonNull Throwable e) {
-                                Log.e(ForecastFragment.class.getName(), "onError", e);
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                Log.d(ForecastFragment.class.getName(), "onComplete");
-
-                            }
-                        });
+        presenter = new ForecastPresenter(repository, this);
+        presenter.requestData();
     }
 
     @Override
@@ -73,5 +50,16 @@ public class ForecastFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return view;
+    }
+
+    @Override
+    public void onDataRetrieved(List<DayForecast> forecasts) {
+        Log.d(ForecastFragment.class.getName(), "onDataRetrieved");
+        adapter.setForecasts(forecasts);
+    }
+
+    @Override
+    public void onDataError(Throwable e) {
+
     }
 }
