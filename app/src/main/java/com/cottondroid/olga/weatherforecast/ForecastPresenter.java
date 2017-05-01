@@ -7,6 +7,7 @@ import com.cottondroid.olga.weatherforecast.data.WeatherForecastRepository;
 import com.cottondroid.olga.weatherforecast.model.Forecast;
 import com.cottondroid.olga.weatherforecast.model.ForecastModel;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class ForecastPresenter {
     }
 
     public void requestData() {
+        final WeakReference<ForecastView> forecastViewReference = new WeakReference<>(view);
         Observable.combineLatest(
                 repository.getWeatherForecast(),
                 repository.getCurrentWeather(),
@@ -54,19 +56,25 @@ public class ForecastPresenter {
                             @Override
                             public void onNext(@NonNull List<Forecast> forecasts) {
                                 Log.d(ForecastFragment.class.getName(), "onNext");
-                                view.onDataRetrieved(forecasts);
+                                ForecastView view = forecastViewReference.get();
+                                if (view != null) {
+                                    view.onDataRetrieved(forecasts);
+                                }
                             }
 
                             @Override
                             public void onError(@NonNull Throwable e) {
                                 Log.d(ForecastFragment.class.getName(), "onError");
-                                view.onDataError(e);
-
+                                ForecastView view = forecastViewReference.get();
+                                if (view != null) {
+                                    view.onDataError(e);
+                                }
                             }
 
                             @Override
                             public void onComplete() {
                                 Log.d(ForecastFragment.class.getName(), "onComplete");
+
                             }
                         });
     }

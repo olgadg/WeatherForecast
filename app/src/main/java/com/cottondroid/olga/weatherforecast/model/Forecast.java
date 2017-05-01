@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -15,6 +15,12 @@ public class Forecast {
     private Calendar calendarDate;
     private ForecastMain main;
     private List<Weather> weather;
+
+    protected Forecast(long date, ForecastMain main, List<Weather> weather) {
+        this.date = date;
+        this.main = main;
+        this.weather = weather;
+    }
 
     /**
      * Constructor using average values.
@@ -30,13 +36,10 @@ public class Forecast {
             weathers.addAll(forecast.weather);
         }
         main = new ForecastMain(forecastMains);
-        weather = weathers;
+        weather = Collections.singletonList(new Weather(weathers));
     }
 
     public String getMainWeather() {
-        if (weather == null || weather.isEmpty()) {
-            return null;
-        }
         return weather.get(0).getMain();
     }
 
@@ -64,7 +67,7 @@ public class Forecast {
         return isSameDate(forecast.getCalendarDate());
     }
 
-    private boolean isSameDate(Calendar otherCalendarDate) {
+    protected boolean isSameDate(Calendar otherCalendarDate) {
         return otherCalendarDate.get(Calendar.YEAR) == getCalendarDate().get(Calendar.YEAR)
                 && otherCalendarDate.get(Calendar.DAY_OF_YEAR) == getCalendarDate().get(Calendar.DAY_OF_YEAR);
     }
@@ -84,5 +87,9 @@ public class Forecast {
 
     public boolean willThereBeSun() {
         return weather.get(0).willThereBeSun();
+    }
+
+    public void setDate(Calendar date) {
+        this.calendarDate = date;
     }
 }

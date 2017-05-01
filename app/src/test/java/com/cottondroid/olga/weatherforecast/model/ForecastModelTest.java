@@ -30,10 +30,24 @@ public class ForecastModelTest {
         assertThat("Todays average weather", forecastModel.getDayForecastList().get(0).getDayForecast().getMainWeather(), is("Rain"));
         assertThat("Todays average temperature", forecastModel.getDayForecastList().get(0).getDayForecast().getTemperature(), is(8));
         assertThat("Todays average min temperature", forecastModel.getDayForecastList().get(0).getDayForecast().getMinTemperature(), is(8));
-        assertThat("Todays average max temperature", forecastModel.getDayForecastList().get(0).getDayForecast().getMaxTemperature(), is(8));
-        for (int i = 1; i < forecastModel.getDayForecastList().size() - 1 ; i++) {
+        assertThat("Todays average max temperature", forecastModel.getDayForecastList().get(0).getDayForecast().getMaxTemperature(), is(9));
+        for (int i = 1; i < forecastModel.getDayForecastList().size() - 1; i++) {
             assertThat("All blocks", forecastModel.getDayForecastList().get(i).getForecastList().size(), is(24 / 3 - 1)); //1 block for every 3 hours
         }
         assertThat("Last days' blocks", forecastModel.getDayForecastList().get(0).getForecastList().size(), is(3)); //3 blocks for the last day
+    }
+
+    @Test
+    public void testCurrentForecast() throws Exception {
+        final GsonBuilder builder = new GsonBuilder();
+        final Gson gson = builder.create();
+        final String json = Resources.toString(getClass().getClassLoader().getResource("weather.json"), Charsets.UTF_8);
+
+        Forecast forecast = gson.fromJson(json, Forecast.class);
+
+        assertThat("Todays temperature", forecast.getTemperature(), is(10));
+        assertThat("Todays min temperature", forecast.getMinTemperature(), is(9));
+        assertThat("Todays max temperature", forecast.getMaxTemperature(), is(13));
+        assertThat("Todays main weather", forecast.getMainWeather(), is("Clouds"));
     }
 }

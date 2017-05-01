@@ -14,6 +14,12 @@ public class ForecastMain {
     @SerializedName("temp_max")
     private float maxTemperature;
 
+    protected ForecastMain(float temperature, float minTemperature, float maxTemperature) {
+        this.temperature = temperature;
+        this.minTemperature = minTemperature;
+        this.maxTemperature = maxTemperature;
+    }
+
     /**
      * Constructor using average values.
      *

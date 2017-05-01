@@ -27,4 +27,8 @@ public class ForecastApplication extends Application {
     public NetworkComponent getNetworkComponent() {
         return networkComponent;
     }
+
+    public void setNetworkComponent(NetworkComponent networkComponent) {
+        this.networkComponent = networkComponent;
+    }
 }
